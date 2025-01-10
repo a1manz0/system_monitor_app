@@ -32,7 +32,6 @@ class SystemMonitorApp(tk.Tk):
 
         self.update_interval = 1000
 
-        # creatin label widgets
         self.title_label = tk.Label(
             self,
             text="Уровень загруженности",
@@ -121,13 +120,13 @@ class SystemMonitorApp(tk.Tk):
             выводится сообщение об ошибке через messagebox.
         """
         try:
-            new_update_interval = int(self.interval_entry.get()) * 1000
+            new_update_interval = int(self.interval_entry.get())
             if new_update_interval < 1:
                 raise ValueError("Значение не может быть < 1")
-            self.update_interval = new_update_interval
+            self.update_interval = new_update_interval * 1000
             messagebox.showinfo(
                 "Информация",
-                f"Интервал обновления установлен на {int(new_update_interval/1000)} секунд.",
+                f"Интервал обновления установлен на {int(new_update_interval)} секунд.",
             )
         except ValueError:
             messagebox.showerror(
