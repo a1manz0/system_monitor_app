@@ -127,7 +127,7 @@ class SystemMonitorApp(tk.Tk):
             self.update_interval = new_update_interval
             messagebox.showinfo(
                 "Информация",
-                f"Интервал обновления установлен на {new_update_interval/1000} секунд.",
+                f"Интервал обновления установлен на {int(new_update_interval/1000)} секунд.",
             )
         except ValueError:
             messagebox.showerror(
