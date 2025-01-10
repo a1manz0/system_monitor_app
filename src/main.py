@@ -23,16 +23,11 @@ class SystemMonitorApp(tk.Tk):
         """
         super().__init__()
 
-        # Устанавливаем заголовок окна приложения
         self.title("Системный монитор")
-        # Настраиваем фон окна
         self.configure(bg="black")
 
-        # Переменная для отслеживания состояния записи данных
         self.is_recording = False
-        # Имя файла базы данных
         self.db_file = db_file
-        # Настраиваем базу данных
         self.setup_database()
 
         # Интервал обновления данных в миллисекундах
@@ -208,6 +203,9 @@ class SystemMonitorApp(tk.Tk):
             )
             self.record_button.pack()
             messagebox.showerror("Ошибка", e)
+        finally:
+            cursor.close()
+            db.close()
 
     def setup_database(self):
         """
@@ -233,6 +231,9 @@ class SystemMonitorApp(tk.Tk):
             conn.close()
         except sqlite3.Error as e:
             messagebox.showerror("Ошибка", e)
+        finally:
+            cursor.close()
+            db.close()
 
 
 if __name__ == "__main__":
