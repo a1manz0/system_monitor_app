@@ -27,7 +27,7 @@ pip install -r requirements.txt
 ## Использование
 Запустите приложение:
 ```
-python src/main.py
+python3 src/main.py
 ```
 ## Тестирование
 Запустите тесты:
