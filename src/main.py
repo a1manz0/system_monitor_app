@@ -186,15 +186,14 @@ class SystemMonitorApp(tk.Tk):
             sqlite3.Error: Если возникает ошибка при работе с базой данных.
         """
         try:
-            conn = sqlite3.connect(self.db_file)
-            cursor = conn.cursor()
+            db = sqlite3.connect(self.db_file)
+            cursor = db.cursor()
             # Вставка данных о нагруженности в таблицу
             cursor.execute(
                 "INSERT INTO usage (timestamp, cpu, ram, disk) VALUES (?, ?, ?, ?)",
                 (time.strftime("%Y-%m-%d %H:%M:%S"), cpu, ram, disk),
             )
-            conn.commit()
-            conn.close()
+            db.commit()
         except sqlite3.Error as e:
             # Если возникает ошибка, останавливаем запись и отображаем сообщение
             self.is_recording = False
@@ -217,8 +216,8 @@ class SystemMonitorApp(tk.Tk):
             sqlite3.Error: Если возникает ошибка при работе с бд.
         """
         try:
-            conn = sqlite3.connect(self.db_file)
-            cursor = conn.cursor()
+            db = sqlite3.connect(self.db_file)
+            cursor = db.cursor()
             # Создание таблицы, если она не существует
             cursor.execute(
                 """CREATE TABLE IF NOT EXISTS usage (
@@ -227,8 +226,7 @@ class SystemMonitorApp(tk.Tk):
                                 ram REAL,
                                 disk REAL)"""
             )
-            conn.commit()
-            conn.close()
+            db.commit()
         except sqlite3.Error as e:
             messagebox.showerror("Ошибка", e)
         finally:
